@@ -1,0 +1,16 @@
+# Ignore all contents of runs/exp1
+runs/exp1/
+
+# Ignore all contents of runs/tutorial_classical_unet
+runs/tutorial_classical_unet/
+
+# Ignore all .pt files (model weights)
+*.pt
+
+# Ignore sample images
+runs/exp2D/samples/
+runs/exp2D/test_preds/
+
+# Ignore all in NuInsSeg except "human_spleen"
+NuInsSeg/*
+!NuInsSeg/human_spleen/
