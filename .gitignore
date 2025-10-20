@@ -8,8 +8,8 @@ runs/tutorial_classical_unet/
 *.pt
 
 # Ignore sample images
-runs/exp2D/samples/
-runs/exp2D/test_preds/
+runs/expD2/samples/
+runs/expD2/test_preds/
 
 # Ignore all in NuInsSeg except "human_spleen"
 NuInsSeg/*
