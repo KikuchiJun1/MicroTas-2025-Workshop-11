@@ -29,14 +29,12 @@ We use a subset of the **NuInsSeg dataset** (human spleen tissue images with bin
 - **Hardware**: GPU recommended (CUDA-enabled) but not required. CPU will be slower.
 - **Time**: ~30-45 minutes.
 
-## 🚀 Quick Start
+## Quick Start
 
-### Option 1: Google Colab (Recommended for Beginners)
+### Google Colab (Recommended for Beginners)
 
 1. Click the badge below to open the notebook in Colab:
-   ```
-   [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KikuchiJun1/MicroTas-2025-Workshop-9-Segmentation/blob/main/Segmentation_Tutorial_Classical_and_UNet.ipynb)
-   ```
+   [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/13U6g9ZiqGMeHWACSNUhqWODf-7SNMztC?usp=sharing)
 
 2. In Colab, install dependencies:
    ```python
@@ -49,37 +47,8 @@ We use a subset of the **NuInsSeg dataset** (human spleen tissue images with bin
    %cd MicroTas-2025-Workshop-9-Segmentation
    ```
 
-4. Run all notebook cells in order. Colab provides free GPU (Tesla K80 or T4), so training will be fast!
-
-### Option 2: Local Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/KikuchiJun1/MicroTas-2025-Workshop-9-Segmentation.git
-   cd MicroTas-2025-Workshop-9-Segmentation
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-   Or manually:
-   ```bash
-   pip install torch torchvision pillow numpy matplotlib scikit-image
-   ```
-
-3. **Open the notebook** in Jupyter Lab or VS Code:
-   ```bash
-   jupyter lab Segmentation_Tutorial_Classical_and_UNet.ipynb
-   ```
-
-4. **Run cells sequentially** from top to bottom.
-
-### Option 3: Kaggle Notebooks
-
-1. Upload or import this repository as a Kaggle dataset.
-2. Create a new Kaggle notebook and link the dataset.
-3. Kaggle provides free GPU; run the notebook cells in order.
+4. Run all notebook cells in order. Colab provides free GPU, so training will be fast!
+However, CPU is sufficient for this notebook given that the model size and training data is relatively small.
 
 ## 📓 Notebook Structure
 
