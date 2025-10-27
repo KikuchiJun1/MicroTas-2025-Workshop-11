@@ -9,7 +9,7 @@ In this tutorial, you'll explore:
 - **Deep Learning Segmentation**: Training a small UNet model on real tissue images.
 - **Inference**: Loading pretrained weights and running predictions on new images.
 
-All of this runs in **~30-45 minutes** with GPU support (recommended) on Google Colab or Kaggle.
+All of this runs in **~30-45 minutes** with GPU support (recommended) on Google Colab.
 
 ## Dataset
 

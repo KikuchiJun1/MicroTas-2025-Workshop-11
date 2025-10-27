@@ -14,3 +14,6 @@ runs/expD2/test_preds/
 # Ignore all in NuInsSeg except "human_spleen"
 NuInsSeg/*
 !NuInsSeg/human_spleen/
+
+# Ignore notebook as theres a link for that in github
+tutorial_classical_unet.ipynb
