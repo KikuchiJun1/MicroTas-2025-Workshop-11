@@ -1,11 +1,11 @@
-# MicroTAS 2025 Workshop 9: Computer Vision for Microscopy
+# MicroTAS 2025 Workshop 11: Artificial Intelligence for Single-Cell Analysis: Detection, Segmentation, Classification, and Tracking
 
 This repository contains two hands-on tutorials for biomedical image analysis using classical and deep learning approaches:
 
 1. **Segmentation Tutorial** - Cell segmentation using classical methods (Otsu thresholding) and UNet
 2. **Classification Tutorial** - Sperm morphology classification using DenseNet-169
 
-Both tutorials are designed for beginners and can run in Google Colab with free GPU access.
+Both tutorials are designed for beginners and can run in Google Colab with free GPU access. However, GPU is recommended for extensive training on data.
 
 ---
 
@@ -26,8 +26,11 @@ Both tutorials are designed for beginners and can run in Google Colab with free 
 │       │   ├── Normal/
 │       │   └── Abnormal/
 │       ├── Validation/
+│       │   ├── Normal/
+│       │   └── Abnormal/
 │       └── Test/
-│
+│           ├── Normal/
+│           └── Abnormal/
 └── README.md
 ```
 
@@ -48,8 +51,8 @@ Both tutorials are designed for beginners and can run in Google Colab with free 
 ### Local Installation
 
 ```bash
-git clone https://github.com/KikuchiJun1/MicroTAS-2025-Workshop-9-Segmentation.git
-cd MicroTAS-2025-Workshop-9-Segmentation
+git clone https://github.com/KikuchiJun1/MicroTAS-2025-Workshop-11.git
+cd MicroTAS-2025-Workshop-11
 pip install torch torchvision pillow numpy matplotlib scikit-image
 ```
 
@@ -89,7 +92,7 @@ Learn nucleus segmentation on the NuInsSeg dataset using:
 
 ---
 
-## 🧬 Tutorial 2: Classification
+## Tutorial 2: Classification
 
 ### Overview
 Binary classification of sperm morphology (Normal vs. Abnormal) using:
