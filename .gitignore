@@ -1,19 +1,19 @@
 # Ignore all contents of runs/exp1
-runs/exp1/
+segmentation/runs/exp1/
 
 # Ignore all contents of runs/tutorial_classical_unet
-runs/tutorial_classical_unet/
+segmentation/runs/tutorial_classical_unet/
 
 # Ignore all .pt files (model weights)
 *.pt
 
 # Ignore sample images
-runs/expD2/samples/
-runs/expD2/test_preds/
+segmentation/runs/expD2/samples/
+segmentation/runs/expD2/test_preds/
 
 # Ignore all in NuInsSeg except "human_spleen"
-NuInsSeg/*
-!NuInsSeg/human_spleen/
+segmentation/NuInsSeg/*
+!segmentation/NuInsSeg/human_spleen/
 
 # Ignore notebook as theres a link for that in github
-tutorial_classical_unet.ipynb
+segmentation/tutorial_classical_unet.ipynb

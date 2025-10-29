@@ -1,172 +1,239 @@
-# MicroTas 2025 Workshop 9: Segmentation Tutorial
+# MicroTAS 2025 Workshop 9: Computer Vision for Microscopy
 
-Welcome to the **Image Segmentation Tutorial**! This repository contains a hands-on workshop combining classical computer vision techniques with deep learning using PyTorch and UNet.
+This repository contains two hands-on tutorials for biomedical image analysis using classical and deep learning approaches:
 
-## What You'll Learn
+1. **Segmentation Tutorial** - Cell segmentation using classical methods (Otsu thresholding) and UNet
+2. **Classification Tutorial** - Sperm morphology classification using DenseNet-169
 
-In this tutorial, you'll explore:
-- **Classical Segmentation**: Grayscale conversion, Otsu thresholding, morphological operations (opening/closing), and evaluation metrics (Dice, IoU).
-- **Deep Learning Segmentation**: Training a small UNet model on real tissue images.
-- **Inference**: Loading pretrained weights and running predictions on new images.
-
-All of this runs in **~30-45 minutes** with GPU support (recommended) on Google Colab.
-
-## Dataset
-
-We use a subset of the **NuInsSeg dataset** (human spleen tissue images with binary segmentation masks):
-- Small subset included in this repository for quick runs.
-- Original data: [`NuInsSeg/human_spleen/`](NuInsSeg/human_spleen/)
-- Images: RGB tissue microscopy images.
-- Masks: Binary ground truth segmentation labels.
-
-## Prerequisites
-
-- **Python 3.8+**
-- **Libraries** (automatically installed):
-  - `torch`, `torchvision` (PyTorch)
-  - `PIL` (image handling)
-  - `numpy`, `matplotlib`, `scikit-image` (data processing & visualization)
-- **Hardware**: GPU recommended (CUDA-enabled) but not required. CPU will be slower.
-- **Time**: ~30-45 minutes.
-
-## Quick Start
-
-### Google Colab (Recommended for Beginners)
-
-1. Click the badge below to open the notebook in Colab:
-   [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/13U6g9ZiqGMeHWACSNUhqWODf-7SNMztC?usp=sharing)
-
-2. Clone the repository to access the dataset and helper modules:
-   ```python
-   !git clone https://github.com/KikuchiJun1/MicroTas-2025-Workshop-9-Segmentation.git
-   %cd MicroTas-2025-Workshop-9-Segmentation
-   ```
-
-3. Run all notebook cells in order. 
-   - **GPU recommended** (Colab provides free GPU access)
-   - **CPU sufficient** (Model size and dataset are small, so still should be sufficient for this notebook)
-
-## Notebook Structure
-
-The main notebook [`Segmentation_Tutorial_Classical_and_UNet.ipynb`](Segmentation_Tutorial_Classical_and_UNet.ipynb) is organized into sections:
-
-1. **Setup**: Configure paths, device (GPU/CPU), and parameters.
-2. **Data Discovery**: Preview images and masks from NuInsSeg.
-3. **Classical Segmentation**: 
-   - Grayscale conversion
-   - Otsu thresholding
-   - Morphological operations (opening/closing)
-   - Evaluation: Dice and IoU metrics
-4. **UNet Training**:
-   - Build and train a small UNet for 10 epochs
-   - Validation loop with metrics
-   - Save best checkpoint
-5. **Inference**:
-   - Load pretrained weights
-   - Run predictions on test images
-   - Visualize results
-
-## Key Parameters
-
-You can customize the tutorial by modifying these parameters in the notebook:
-
-- **`LIMIT`**: Number of image/mask pairs to use. Default: 40 (fast). Increase to 100+ for better results.
-- **`IMG_SIZE`**: Image resolution. Default: 256 (balanced speed/quality).
-- **`EPOCHS`**: Training epochs. Default: 10 (quick demo).
-- **`BATCH_SIZE`**: Samples per batch. Default: 4.
-- **`INCLUDE`**: Dataset subsets to use. Default: `['human_spleen']`.
-
-To run a longer training:
-```python
-LIMIT = 200      # Use more images
-EPOCHS = 20      # Train longer
-IMG_SIZE = 512   # Higher resolution
-```
-
-## Expected Results
-
-After running the notebook, you should see:
-
-1. **Classical Method Performance**: Dice ~0.7-0.85, IoU ~0.5-0.75 (fast, simple).
-2. **UNet Performance**: Dice ~0.85-0.95, IoU ~0.75-0.90 (better, with learning).
-3. **Training Plots**: Loss curves showing convergence.
-4. **Example Predictions**: Side-by-side visualizations of input image, predicted mask, and ground truth.
-
-## File Structure
-
-```
-MicroTas-2025-Workshop-9-Segmentation/
-├── Segmentation_Tutorial_Classical_and_UNet.ipynb   # Main notebook
-├── README.md                                         # This file
-├── requirements.txt                                  # Python dependencies
-├── .gitignore                                        # Git ignore rules
-├── NuInsSeg/
-│   └── human_spleen/                               # Dataset (small subset)
-│       ├── tissue_images/                          # RGB tissue images
-│       └── mask_binary/                            # Binary ground truth masks
-├── train_unet/                                      # Helper modules (if included)
-│   ├── dataset_nuinsseg.py
-│   ├── model_unet.py
-│   ├── transforms.py
-│   └── utils.py
-└── runs/
-    └── expD2/                                      # Saved checkpoints & outputs
-        └── best.pt                                 # Best UNet weights that you'll download from GDrive
-```
-
-## Troubleshooting
-
-### **"ModuleNotFoundError: No module named 'train_unet'"**
-   - Ensure you cloned the full repository and are in the correct directory.
-   - In Colab: Run `!git clone` and `%cd` as shown above.
-
-### **"No GPU available / CUDA not detected"**
-   - On Colab: Enable GPU by going to **Runtime → Change runtime type → GPU**.
-   - On local machine: Install `pytorch-cuda` (e.g., `pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`).
-   - The code will still run on CPU, but slower.
-
-### **"NuInsSeg dataset not found"**
-   - Ensure the `NuInsSeg/` folder is in the repository root.
-   - If using Colab, `git clone` includes it; no extra steps needed.
-
-### **"Out of memory (OOM) error"**
-   - Reduce `BATCH_SIZE` (e.g., 2 or 1).
-   - Reduce `IMG_SIZE` (e.g., 128).
-   - Reduce `LIMIT` (fewer images).
-
-### **Notebook cells fail to run**
-   - Restart the kernel: **Kernel → Restart Kernel & Clear Output**.
-   - Re-run cells from the top in order.
-
-## Learning Resources
-
-- **PyTorch Basics**: [PyTorch Tutorial](https://pytorch.org/tutorials/)
-- **Segmentation Concepts**: [Semantic Segmentation Overview](https://en.wikipedia.org/wiki/Semantic_segmentation)
-- **UNet Architecture**: [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597)
-- **Review Paper**: [Medical Image Segmentation Using Deep Learning: A Survey](https://arxiv.org/pdf/2009.13120v1) - Comprehensive overview of deep learning approaches for medical image segmentation
-- **Meta's Segment Anything**: [Segment Anything](https://arxiv.org/pdf/2304.02643) - Foundation model for image segmentation (Meta)
-- **Meta's Segment Anything 2**: [SAM 2: Segment Anything in Images and Videos](https://arxiv.org/abs/2408.00714) - Extended SAM model for video segmentation
-- **Evaluation Metrics**: [Dice Coefficient](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient) and [IoU](https://en.wikipedia.org/wiki/Jaccard_index)
-
-
-## Contributing
-
-Found a bug or have suggestions?
-- Open an issue on GitHub.
-- Fork the repo, make changes, and submit a pull request.
-
-## License
-
-This project is licensed under the **MIT License**. Feel free to use, modify, and distribute for educational purposes.
-
-## Questions?
-
-- Check the **Troubleshooting** section above.
-- Open a GitHub issue with details about your problem.
-- For workshop-specific questions, contact the instructor.
+Both tutorials are designed for beginners and can run in Google Colab with free GPU access.
 
 ---
 
-**Happy segmenting!**
+## 📚 Repository Structure
 
-*Last updated: October 2025*
+```
+.
+├── segmentation/
+│   ├── Segmentation_Tutorial_Classical_and_UNet.ipynb
+│   ├── NuInsSeg/                    # Dataset (human_spleen subset)
+│   ├── train_unet/                  # Helper modules
+│   └── runs/                        # Training outputs
+│
+├── classification/
+│   ├── Classification.ipynb
+│   └── Data/                        # Dataset folders (Train/Validation/Test)
+│       ├── Train/
+│       │   ├── Normal/
+│       │   └── Abnormal/
+│       ├── Validation/
+│       └── Test/
+│
+└── README.md
+```
+
+---
+
+## 🎯 Quick Start
+
+### Access via Google Colab (Recommended)
+
+**Segmentation Tutorial:**
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/13U6g9ZiqGMeHWACSNUhqWODf-7SNMztC?usp=sharing)
+
+**Classification Tutorial:**
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KikuchiJun1/MicroTAS-2025-Workshop-9-Segmentation/blob/main/classification/Classification.ipynb)
+
+### Local Installation
+
+```bash
+git clone https://github.com/KikuchiJun1/MicroTAS-2025-Workshop-9-Segmentation.git
+cd MicroTAS-2025-Workshop-9-Segmentation
+pip install torch torchvision pillow numpy matplotlib scikit-image
+```
+
+---
+
+## Tutorial 1: Segmentation
+
+### Overview
+Learn nucleus segmentation on the NuInsSeg dataset using:
+- **Classical methods**: Otsu thresholding, morphological operations
+- **Deep learning**: UNet architecture for semantic segmentation
+
+### What You'll Learn
+- Image preprocessing and visualization
+- Classical segmentation techniques
+- Training a lightweight UNet (10 epochs)
+- Evaluation metrics: Dice coefficient and IoU
+- Inference on new images
+
+### Dataset
+- **NuInsSeg** (subset: human spleen tissue)
+- ~40 image/mask pairs for fast training
+- Binary segmentation (nucleus vs. background)
+
+### Expected Results
+- **Classical (Otsu)**: Dice ~0.60-0.70
+- **UNet (10 epochs)**: Dice ~0.85-0.95
+
+### Runtime
+- **GPU (Colab)**: ~10-15 minutes
+- **CPU**: ~30-45 minutes
+
+### Key Features
+- Runs entirely in the browser (no local setup)
+- Pretrained weights available for inference
+- Modular code with detailed comments
+
+---
+
+## 🧬 Tutorial 2: Classification
+
+### Overview
+Binary classification of sperm morphology (Normal vs. Abnormal) using:
+- **DenseNet-169** pretrained on ImageNet
+- Transfer learning approach
+
+### What You'll Learn
+- Data augmentation for medical images
+- Transfer learning with pretrained models
+- Training with PyTorch DataLoaders
+- Model evaluation and confusion matrices
+
+### Dataset
+- TIFF/PNG images of sperm cells
+- Two classes: Normal and Abnormal
+- ImageFolder structure for easy loading
+
+### Expected Results
+- **5 epochs**: Validation accuracy ~75-80%
+- **75 epochs (pretrained)**: Validation accuracy ~77%
+
+### Runtime
+- **GPU (Colab)**: ~5-10 minutes (5 epochs)
+- **CPU**: ~20-30 minutes (5 epochs)
+
+### Key Features
+- 800×800 image resolution
+- Grayscale normalization (mean=0.2636, std=0.1562)
+- Pretrained checkpoint included for evaluation
+
+---
+
+## Prerequisites
+
+### Software
+- Python 3.8+
+- PyTorch 1.13+
+- torchvision
+- Pillow, NumPy, Matplotlib
+- scikit-image (for segmentation only)
+
+### Hardware
+- **Recommended**: GPU with 4GB+ VRAM (free in Colab)
+- **Minimum**: CPU with 8GB RAM
+
+---
+
+## Usage Instructions
+
+### Segmentation Tutorial
+
+1. **Open in Colab** using the badge above
+2. **Run Setup Cells** (1-4) to clone repo and download weights
+3. **Follow the notebook sequentially**:
+   - Data exploration
+   - Classical segmentation demo
+   - UNet training (10 epochs)
+   - Pretrained inference
+4. **Experiment**: Adjust `LIMIT`, `EPOCHS`, `IMG_SIZE` in Setup Cell 3
+
+### Classification Tutorial
+
+1. **Open in Colab** using the badge above
+2. **Mount Google Drive** (if dataset is stored there)
+3. **Update `CFG.data_dir`** to point to your dataset
+4. **Run all cells** to train for 5 epochs
+5. **Evaluate** using the pretrained checkpoint section
+
+---
+
+## Evaluation Metrics
+
+### Segmentation
+- **Dice Coefficient**: Overlap between prediction and ground truth
+  - Formula: `2 * |A ∩ B| / (|A| + |B|)`
+  - Range: 0 (no overlap) to 1 (perfect match)
+- **IoU (Intersection over Union)**: Also known as Jaccard Index
+  - Formula: `|A ∩ B| / |A ∪ B|`
+
+### Classification
+- **Accuracy**: Proportion of correct predictions
+- **Precision/Recall**: Per-class performance
+- **Confusion Matrix**: Detailed breakdown of predictions
+
+---
+
+## Troubleshooting
+
+### Segmentation
+
+**Issue**: `ModuleNotFoundError: No module named 'train_unet'`  
+**Solution**: Ensure you ran Setup Cell 1 to clone the repository
+
+**Issue**: `RuntimeError: CUDA out of memory`  
+**Solution**: Reduce `BATCH_SIZE` or `IMG_SIZE` in Setup Cell 3
+
+**Issue**: Pretrained weights fail to download  
+**Solution**: Training will proceed normally; newly trained model will be used for inference
+
+### Classification
+
+**Issue**: `FileNotFoundError: [Errno 2] No such file or directory: './Data/Train'`  
+**Solution**: Update `CFG.data_dir` to your dataset location
+
+**Issue**: Poor validation accuracy  
+**Solution**: Train for more epochs (increase `CFG.epochs`) or check data quality
+
+---
+
+## 🎓 Workshop Information
+
+**Workshop**: MicroTAS 2025 - Computer Vision for Microscopy  
+**Duration**: 90 minutes  
+**Level**: Beginner to Intermediate  
+**Prerequisites**: Basic Python knowledge
+
+### Learning Outcomes
+By the end of this workshop, you will:
+- ✅ Understand classical vs. deep learning approaches for image analysis
+- ✅ Train and evaluate segmentation and classification models
+- ✅ Use transfer learning for medical imaging tasks
+- ✅ Deploy models in Google Colab for quick prototyping
+
+---
+
+## Contact & Support
+
+- **GitHub Issues**: [Report bugs or ask questions](https://github.com/KikuchiJun1/MicroTAS-2025-Workshop-9-Segmentation/issues)
+- **Workshop Organizers**: Contact via MicroTAS 2025 conference
+
+---
+
+## License
+
+MIT License - Feel free to use for educational purposes.
+
+---
+
+## 🙏 Acknowledgments
+
+- **NuInsSeg Dataset**: Provided by the medical imaging community
+- **PyTorch & torchvision**: Open-source deep learning frameworks
+- **Google Colab**: Free GPU access for education
+
+---
+
+**Happy Learning! **
