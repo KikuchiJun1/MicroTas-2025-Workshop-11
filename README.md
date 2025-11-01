@@ -46,7 +46,7 @@ Both tutorials are designed for beginners and can run in Google Colab with free 
 
 **Classification Tutorial:**
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KikuchiJun1/MicroTAS-2025-Workshop-9-Segmentation/blob/main/classification/Classification.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KikuchiJun1/MicroTAS-2025-Workshop-9-Segmentation/blob/main/classification/Classification_V3.ipynb)
 
 ### Local Installation
 
